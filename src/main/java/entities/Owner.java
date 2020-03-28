@@ -1,10 +1,11 @@
 package entities;
 
 import javax.persistence.*;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
-@Table(name = "Owners")
+@Table(name = "OWNERS")
 public class Owner {
 
     @Id
@@ -18,8 +19,9 @@ public class Owner {
     @Column(name = "LAST_NAME")
     private String lastName;
 
-    @ManyToMany
-    private Set<Pet> ownersPet;
+    @OneToMany
+    @JoinColumn(name = "owner")
+    private List<Pet> pets = new ArrayList<>();
 
     public Owner() {}
 

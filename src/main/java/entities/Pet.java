@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.Set;
 
 @Entity
-@Table(name = "Pets")
+@Table(name = "PETS")
 public class Pet {
 
     @Id
@@ -17,15 +17,17 @@ public class Pet {
     @Column(name = "PET_TYPE")
     private String type;
 
-    @ManyToMany
-    private Set<Owner> petsOwner;
+    @ManyToOne
+    @JoinColumn(name = "OWNER_ID")
+    private Owner owner;
 
     public Pet() {}
 
-    public Pet(Long id, String name, String type) {
+    public Pet(Long id, String name, String type, Owner owner) {
         this.id = id;
         this.name = name;
         this.type = type;
+        this.owner = owner;
     }
 
     public Long getId() {
