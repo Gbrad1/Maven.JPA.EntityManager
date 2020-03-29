@@ -9,16 +9,17 @@ public class Pet {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "pet_id")
     private Long id;
 
-    @Column(name = "PET_NAME")
+    @Column(name = "pet_name")
     private String name;
 
-    @Column(name = "PET_TYPE")
+    @Column(name = "pet_type")
     private String type;
 
-    @ManyToOne
-    @JoinColumn(name = "OWNER_ID")
+    @ManyToOne(cascade = {CascadeType.MERGE}, fetch = FetchType.EAGER)
+    //@JoinColumn(name = "owner_id")
     private Owner owner;
 
     public Pet() {}

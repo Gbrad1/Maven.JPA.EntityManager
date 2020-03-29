@@ -5,8 +5,8 @@
     <persistence-unit name="PERSISTENCE">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
         <properties>
-            <property name = "javax.persistence.jdbc.driver" value = "com.mysql.jdbc.driver" />
-            <property name = "javax.persistence.jdbc.url" value ="jdbc:mysql://localhost:3306/pets" />
+            <property name = "javax.persistence.jdbc.driver" value = "com.mysql.cj.jdbc.Driver" />
+            <property name = "javax.persistence.jdbc.url" value ="jdbc:mysql://localhost:3306/pets?serverTimezone=UTC"/>
             <property name = "javax.persistence.jdbc.user" value = "gbrad" />
             <property name = "javax.persistence.jdbc.password" value="kali" />
 
