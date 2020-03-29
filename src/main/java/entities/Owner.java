@@ -19,8 +19,6 @@ public class Owner {
     @Column(name = "LAST_NAME")
     private String lastName;
 
-    @OneToMany
-    @JoinColumn(name = "owner")
     private List<Pet> pets = new ArrayList<>();
 
     public Owner() {}
@@ -53,5 +51,13 @@ public class Owner {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public List<Pet> getPets() {
+        return pets;
+    }
+
+    public void setPets(List<Pet> pets) {
+        this.pets = pets;
     }
 }

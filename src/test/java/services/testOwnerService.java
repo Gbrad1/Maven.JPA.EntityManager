@@ -22,4 +22,6 @@ public class testOwnerService {
         Owner owner = os.findById(1L);
         Assert.assertNotNull(owner);
     }
+
+
 }

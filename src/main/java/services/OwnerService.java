@@ -4,7 +4,7 @@ import entities.Owner;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import javax.persistence.Query;
+import javax.persistence.criteria.CriteriaQuery;
 import java.util.List;
 
 public class OwnerService {
@@ -20,26 +20,24 @@ public class OwnerService {
 
     public Owner findById(Long id) {
         EntityManager em = getEntityManager();
-        Owner owner = em.find(Owner.class, id);
-        em.detach(owner);
-        return owner;
+        return em.find(Owner.class, id);
     }
 
     public List<Owner> findAll() {
         EntityManager em = getEntityManager();
-        Query query = em.createQuery("SELECT id FROM Owner id");
-        return query.getResultList();
+        CriteriaQuery<Owner> toGet = em.getCriteriaBuilder().createQuery(Owner.class);
+        toGet.select(toGet.from(Owner.class));
+        return em.createQuery(toGet).getResultList();
     }
 
     public void update(Long id, Owner newOwner) {
-        EntityManager em = getEntityManager();
+        EntityManager em = getEntityManager(); 
         Owner owner = findById(id);
-        if (owner != null) {
-            owner.setId(newOwner.getId());
-            owner.setFirstName(newOwner.getFirstName());
-            owner.setLastName(newOwner.getLastName());
-            em.getTransaction();
-        }
+        owner.setId(newOwner.getId());
+        owner.setFirstName(newOwner.getFirstName());
+        owner.setLastName(newOwner.getLastName());
+        em.merge(owner);
+
     }
 
     public Owner create(Long id, String firstName, String lastName){

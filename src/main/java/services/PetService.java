@@ -6,7 +6,7 @@ import entities.Pet;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import javax.persistence.Query;
+import javax.persistence.criteria.CriteriaQuery;
 import java.util.List;
 
 public class PetService {
@@ -21,26 +21,23 @@ public class PetService {
 
     public Pet findById(Long id) {
         EntityManager em = getEntityManager();
-        Pet pet = em.find(Pet.class, id);
-        em.detach(pet);
-        return pet;
+        return em.find(Pet.class, id);
     }
 
     public List<Pet> findAll() {
         EntityManager em = getEntityManager();
-        Query query = em.createQuery("SELECT id FROM Pet id");
-        return query.getResultList();
+        CriteriaQuery<Pet> toGet = em.getCriteriaBuilder().createQuery(Pet.class);
+        toGet.select(toGet.from(Pet.class));
+        return em.createQuery(toGet).getResultList();
     }
 
     public void update(Long id, Pet newPet) {
         EntityManager em = getEntityManager();
         Pet pet = findById(id);
-        if (pet != null) {
-            pet.setId(newPet.getId());
-            pet.setName(newPet.getName());
-            pet.setType(newPet.getType());
-            em.getTransaction();
-        }
+        pet.setId(newPet.getId());
+        pet.setName(newPet.getName());
+        pet.setType(newPet.getType());
+        em.merge(pet);
     }
 
     public Pet create(Long id, String name, String type) {

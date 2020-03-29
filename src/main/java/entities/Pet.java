@@ -53,4 +53,12 @@ public class Pet {
     public void setType(String type) {
         this.type = type;
     }
+
+    public Owner getOwner() {
+        return owner;
+    }
+
+    public void setOwner(Owner owner) {
+        this.owner = owner;
+    }
 }
