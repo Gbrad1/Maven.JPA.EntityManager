@@ -31,7 +31,7 @@ public class OwnerService {
     }
 
     public void update(Long id, Owner newOwner) {
-        EntityManager em = getEntityManager(); 
+        EntityManager em = getEntityManager();
         Owner owner = findById(id);
         owner.setId(newOwner.getId());
         owner.setFirstName(newOwner.getFirstName());

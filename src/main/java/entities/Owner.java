@@ -19,6 +19,8 @@ public class Owner {
     @Column(name = "LAST_NAME")
     private String lastName;
 
+    @OneToMany
+    @JoinColumn(name = "PET_ID")
     private List<Pet> pets = new ArrayList<>();
 
     public Owner() {}
