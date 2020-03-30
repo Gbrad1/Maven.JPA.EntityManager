@@ -1,10 +1,10 @@
 package services;
 
 import entities.Owner;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import javax.persistence.criteria.CriteriaQuery;
 import java.util.List;
 
 public class OwnerService {
@@ -25,9 +25,7 @@ public class OwnerService {
 
     public List<Owner> findAll() {
         EntityManager em = getEntityManager();
-        CriteriaQuery<Owner> toGet = em.getCriteriaBuilder().createQuery(Owner.class);
-        toGet.select(toGet.from(Owner.class));
-        return em.createQuery(toGet).getResultList();
+        return em.createQuery("SELECT o FROM Owner o", Owner.class).getResultList();
     }
 
     public void update(Long id, Owner newOwner) {
@@ -57,9 +55,7 @@ public class OwnerService {
         EntityManager em = getEntityManager();
         em.getTransaction().begin();
         Owner owner = findById(id);
-        if (owner != null) {
-            em.remove(owner);
-        }
+        em.remove(owner);
         em.getTransaction().commit();
     }
 

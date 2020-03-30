@@ -4,7 +4,7 @@ import entities.Pet;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import javax.persistence.criteria.CriteriaQuery;
+
 import java.util.List;
 
 public class PetService {
@@ -24,9 +24,7 @@ public class PetService {
 
     public List<Pet> findAll() {
         EntityManager em = getEntityManager();
-        CriteriaQuery<Pet> toGet = em.getCriteriaBuilder().createQuery(Pet.class);
-        toGet.select(toGet.from(Pet.class));
-        return em.createQuery(toGet).getResultList();
+        return em.createQuery("SELECT p FROM Pet p", Pet.class).getResultList();
     }
 
     public void update(Long id, Pet newPet) {
@@ -56,9 +54,7 @@ public class PetService {
         EntityManager em = getEntityManager();
         em.getTransaction().begin();
         Pet pet = findById(id);
-        if (pet != null) {
-            em.remove(pet);
-        }
+        em.remove(pet);
         em.getTransaction().commit();
     }
 
