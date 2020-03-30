@@ -19,8 +19,8 @@ public class Owner {
     @Column(name = "last_name")
     private String lastName;
 
-    @OneToMany(cascade = {CascadeType.MERGE}, fetch = FetchType.EAGER, mappedBy = "owner")
-    //@JoinColumn(name = "pet_id")
+    @OneToMany(cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
+    @JoinColumn(name = "pet_id")
     private List<Pet> pets = new ArrayList<>();
 
     public Owner() {}

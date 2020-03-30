@@ -32,30 +32,35 @@ public class OwnerService {
 
     public void update(Long id, Owner newOwner) {
         EntityManager em = getEntityManager();
+        em.getTransaction().begin();
         Owner owner = findById(id);
         owner.setId(newOwner.getId());
         owner.setFirstName(newOwner.getFirstName());
         owner.setLastName(newOwner.getLastName());
         em.merge(owner);
-
+        em.getTransaction().commit();
     }
 
     public Owner create(Long id, String firstName, String lastName){
         EntityManager em = getEntityManager();
+        em.getTransaction().begin();
         Owner owner = new Owner();
         owner.setId(id);
         owner.setFirstName(firstName);
         owner.setLastName(lastName);
-        em.persist(owner);
+        em.merge(owner);
+        em.getTransaction().commit();
         return owner;
     }
 
     public void deleteOwner(Long id) {
         EntityManager em = getEntityManager();
+        em.getTransaction().begin();
         Owner owner = findById(id);
         if (owner != null) {
             em.remove(owner);
         }
+        em.getTransaction().commit();
     }
 
 }

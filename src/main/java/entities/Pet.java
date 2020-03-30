@@ -18,8 +18,8 @@ public class Pet {
     @Column(name = "pet_type")
     private String type;
 
-    @ManyToOne(cascade = {CascadeType.MERGE}, fetch = FetchType.EAGER)
-    //@JoinColumn(name = "owner_id")
+    @ManyToOne(cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
+    @JoinColumn(name = "owner_id")
     private Owner owner;
 
     public Pet() {}
